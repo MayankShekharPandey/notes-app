@@ -1,20 +1,46 @@
 {% extends "base.html" %}
 
-{% block title %}Search - SimpleNotes{% endblock %}
+{% block title %}Search Notes{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <h1 class="page-title">Search Notes</h1>
-</div>
+<div class="search-page">
+    <h1>Search Notes</h1>
+    
+    <form method="GET" class="search-form">
+        <input type="text" name="q" value="{{ search_query }}" placeholder="Search notes...">
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
 
-<div class="search-container">
-    <div class="search-box">
-        <input type="text" placeholder="Search your notes..." class="search-input">
-        <button class="btn btn-primary">Search</button>
-    </div>
-
+    {% if search_query %}
     <div class="search-results">
-        <p class="search-info">Enter a search term to find your notes</p>
+        <h2>Results for "{{ search_query }}"</h2>
+        
+        {% if notes %}
+            <p>{{ notes|length }} notes found</p>
+            
+            <div class="notes-grid">
+                {% for note in notes %}
+                <div class="card {% if note.is_important %}important{% endif %}">
+                    <div class="card-header">
+                        <h3>{{ note.title }}</h3>
+                        <div class="card-actions">
+                            {% if note.categories %}
+                            <span class="tag">{{ note.categories.name }}</span>
+                            {% endif %}
+                            <a href="{{ url_for('toggle_important', note_id=note.id) }}" class="star {% if note.is_important %}active{% endif %}">★</a>
+                        </div>
+                    </div>
+                    <p>{{ note.content }}</p>
+                    <div class="card-footer">
+                        <a href="{{ url_for('delete_note', note_id=note.id) }}" class="btn btn-small" onclick="return confirm('Delete this note?')">Delete</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="empty">No notes found.</p>
+        {% endif %}
     </div>
+    {% endif %}
 </div>
 {% endblock %}

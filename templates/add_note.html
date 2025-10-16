@@ -1,46 +1,42 @@
 {% extends "base.html" %}
 
-{% block title %}Add Note - SimpleNotes{% endblock %}
+{% block title %}Add Note{% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <h1 class="page-title">Add New Note</h1>
-</div>
-
-<div class="form-container">
-    <form class="note-form">
+<div class="form-page">
+    <h1>Add New Note</h1>
+    
+    <form method="POST" class="form">
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" id="title" placeholder="Note title">
+            <input type="text" id="title" name="title" required>
         </div>
-
+        
+        <div class="form-group">
+            <label for="category_id">Category</label>
+            <select id="category_id" name="category_id">
+                <option value="">No Category</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
         <div class="form-group">
             <label for="content">Content</label>
-            <textarea id="content" rows="8" placeholder="Write your note here..."></textarea>
+            <textarea id="content" name="content" rows="8" required></textarea>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select id="category">
-                    <option value="">Select category</option>
-                    <option value="work">Work</option>
-                    <option value="personal">Personal</option>
-                    <option value="ideas">Ideas</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label class="checkbox-label">
-                    <input type="checkbox" id="important">
-                    Mark as important
-                </label>
-            </div>
+        
+        <div class="form-group">
+            <label class="checkbox">
+                <input type="checkbox" name="is_important" id="is_important">
+                Mark as Important
+            </label>
         </div>
-
+        
         <div class="form-actions">
             <button type="submit" class="btn btn-primary">Save Note</button>
-            <a href="{{ url_for('all_notes') }}" class="btn btn-outline">Cancel</a>
+            <a href="{{ url_for('all_notes') }}" class="btn btn-secondary">Cancel</a>
         </div>
     </form>
 </div>
