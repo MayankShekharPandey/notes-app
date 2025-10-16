@@ -386,4 +386,9 @@ def test_insert():
         return {'success': False, 'error': str(e)}
 
 if __name__ == '__main__':
-    app.run(debug=True, host='localhost', port=5000)
+    # Check if running on Vercel
+    if os.environ.get('VERCEL'):
+        app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+    else:
+        # Local development
+        app.run(debug=True, host='localhost', port=5000)
