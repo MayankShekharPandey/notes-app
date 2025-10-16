@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Important Notes - Notes App{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Important Notes ⭐</h1>
+</div>
+
+<div class="notes-grid">
+    {% if notes %}
+        {% for note in notes %}
+        <div class="note-card important-note">
+            <div class="note-header">
+                <h3>{{ note.title }}</h3>
+                <div class="note-actions-header">
+                    {% if note.categories %}
+                    <span class="category-tag" style="background-color: {{ note.categories.color }};">
+                        {{ note.categories.name }}
+                    </span>
+                    {% endif %}
+                    <a href="{{ url_for('toggle_important', note_id=note.id) }}" class="btn-important active" title="Remove from Important">
+                        ⭐
+                    </a>
+                </div>
+            </div>
+            <p class="note-content">{{ note.content }}</p>
+            <div class="note-footer">
+                <small>Created: {{ note.created_at[:16] }}</small>
+            </div>
+            <div class="note-actions">
+                <a href="{{ url_for('delete_note', note_id=note.id) }}" class="btn-delete" onclick="return confirm('Delete this note?')">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-data">
+            <p>No important notes yet.</p>
+            <p>Mark notes as important by clicking the star icon!</p>
+            <a href="{{ url_for('all_notes') }}" class="btn-primary">View All Notes</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

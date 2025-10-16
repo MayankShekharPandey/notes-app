@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Notes App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="nav-brand">📝 Notes App</h1>
+            <ul class="nav-menu">
+                {% if session.user %}
+                    <li><a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a></li>
+                    <li><a href="{{ url_for('all_notes') }}" class="nav-link">All Notes</a></li>
+                    <li><a href="{{ url_for('important_notes') }}" class="nav-link">Important ⭐</a></li>
+                    <li><a href="{{ url_for('add_note') }}" class="nav-link">Add Note</a></li>
+                    <li><a href="{{ url_for('search_notes') }}" class="nav-link">Search</a></li>
+                    <li><a href="{{ url_for('categories') }}" class="nav-link">Categories</a></li>
+                    <li><a href="{{ url_for('logout') }}" class="nav-link">Logout ({{ session.user.email }})</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}" class="nav-link">Login</a></li>
+                    <li><a href="{{ url_for('register') }}" class="nav-link">Register</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
