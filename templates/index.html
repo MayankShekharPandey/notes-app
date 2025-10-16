@@ -1,61 +1,29 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Notes App{% endblock %}
+{% block title %}Home - SimpleNotes{% endblock %}
 
 {% block content %}
-<div class="dashboard">
-    <div class="stats-grid">
-        <div class="stat-card">
-            <h3>Total Notes</h3>
-            <p class="stat-number">{{ total_notes }}</p>
-        </div>
-        <div class="stat-card">
-            <h3>Important Notes</h3>
-            <p class="stat-number">{{ important_notes_count }}</p>
-        </div>
+<div class="hero">
+    <h1>Your Thoughts, Organized</h1>
+    <p>A simple and clean note-taking app that helps you capture what matters.</p>
+    <div class="hero-actions">
+        <a href="{{ url_for('add_note') }}" class="btn btn-primary">Start Writing</a>
+        <a href="{{ url_for('all_notes') }}" class="btn btn-outline">Browse Notes</a>
     </div>
+</div>
 
-    <div class="dashboard-grid">
-        <div class="recent-notes">
-            <h2>Recent Notes</h2>
-            {% if recent_notes %}
-                {% for note in recent_notes %}
-                <div class="note-card">
-                    <div class="note-header">
-                        <h3>{{ note.title }}</h3>
-                        <div class="note-actions-header">
-                            {% if note.categories %}
-                            <span class="category-tag" style="background-color: {{ note.categories.color }};">
-                                {{ note.categories.name }}
-                            </span>
-                            {% endif %}
-                            <a href="{{ url_for('toggle_important', note_id=note.id) }}" class="btn-important {% if note.is_important %}active{% endif %}" title="Toggle Important">
-                                ⭐
-                            </a>
-                        </div>
-                    </div>
-                    <p>{{ note.content[:100] }}{% if note.content|length > 100 %}...{% endif %}</p>
-                    <div class="note-actions">
-                        <small>{{ note.created_at[:16] }}</small>
-                        <a href="{{ url_for('delete_note', note_id=note.id) }}" class="btn-delete" onclick="return confirm('Delete this note?')">Delete</a>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <p class="no-data">No notes yet. <a href="{{ url_for('add_note') }}">Create your first note!</a></p>
-            {% endif %}
-        </div>
-
-        <div class="categories-sidebar">
-            <h2>Your Categories</h2>
-            {% for category in categories %}
-            <div class="category-item">
-                <span class="category-color" style="background-color: {{ category.color }};"></span>
-                <span>{{ category.name }}</span>
-            </div>
-            {% endfor %}
-            <a href="{{ url_for('categories') }}" class="btn-secondary" style="margin-top: 1rem;">Manage Categories</a>
-        </div>
+<div class="features">
+    <div class="feature-card">
+        <h3>Quick Capture</h3>
+        <p>Add notes instantly with our minimalist interface</p>
+    </div>
+    <div class="feature-card">
+        <h3>Organize</h3>
+        <p>Categorize and mark important notes</p>
+    </div>
+    <div class="feature-card">
+        <h3>Find Fast</h3>
+        <p>Search through your notes effortlessly</p>
     </div>
 </div>
 {% endblock %}

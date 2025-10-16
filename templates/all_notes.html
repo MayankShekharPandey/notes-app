@@ -1,58 +1,47 @@
 {% extends "base.html" %}
 
-{% block title %}All Notes - Notes App{% endblock %}
+{% block title %}All Notes - SimpleNotes{% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>All Notes</h1>
-    <a href="{{ url_for('add_note') }}" class="btn-primary">+ Add New Note</a>
-</div>
-
-<div class="filter-section">
-    <form method="GET" class="filter-form">
-        <label>Filter by Category:</label>
-        <select name="category" onchange="this.form.submit()">
-            <option value="all" {% if current_category == 'all' %}selected{% endif %}>All Categories</option>
-            {% for category in categories %}
-            <option value="{{ category.name }}" {% if current_category == category.name %}selected{% endif %}>
-                {{ category.name }}
-            </option>
-            {% endfor %}
-        </select>
-    </form>
+    <h1 class="page-title">All Notes</h1>
 </div>
 
 <div class="notes-grid">
-    {% if notes %}
-        {% for note in notes %}
-        <div class="note-card {% if note.is_important %}important-note{% endif %}">
-            <div class="note-header">
-                <h3>{{ note.title }}</h3>
-                <div class="note-actions-header">
-                    {% if note.categories %}
-                    <span class="category-tag" style="background-color: {{ note.categories.color }};">
-                        {{ note.categories.name }}
-                    </span>
-                    {% endif %}
-                    <a href="{{ url_for('toggle_important', note_id=note.id) }}" class="btn-important {% if note.is_important %}active{% endif %}" title="Toggle Important">
-                        ⭐
-                    </a>
-                </div>
-            </div>
-            <p class="note-content">{{ note.content }}</p>
-            <div class="note-footer">
-                <small>Created: {{ note.created_at[:16] }}</small>
-            </div>
-            <div class="note-actions">
-                <a href="{{ url_for('delete_note', note_id=note.id) }}" class="btn-delete" onclick="return confirm('Delete this note?')">Delete</a>
-            </div>
+    <div class="note-card">
+        <div class="note-header">
+            <h3>Meeting Notes</h3>
+            <span class="note-date">Today</span>
         </div>
-        {% endfor %}
-    {% else %}
-        <div class="no-data">
-            <p>No notes found.</p>
-            <a href="{{ url_for('add_note') }}" class="btn-primary">Create First Note</a>
+        <p>Discussed project timeline and deliverables for Q4...</p>
+        <div class="note-actions">
+            <button class="btn btn-outline btn-small">Edit</button>
+            <button class="btn btn-danger btn-small">Delete</button>
         </div>
-    {% endif %}
+    </div>
+
+    <div class="note-card">
+        <div class="note-header">
+            <h3>Shopping List</h3>
+            <span class="note-date">Yesterday</span>
+        </div>
+        <p>Milk, Eggs, Bread, Coffee, Fruits...</p>
+        <div class="note-actions">
+            <button class="btn btn-outline btn-small">Edit</button>
+            <button class="btn btn-danger btn-small">Delete</button>
+        </div>
+    </div>
+
+    <div class="note-card">
+        <div class="note-header">
+            <h3>Book Ideas</h3>
+            <span class="note-date">Last week</span>
+        </div>
+        <p>Science fiction novel about space exploration...</p>
+        <div class="note-actions">
+            <button class="btn btn-outline btn-small">Edit</button>
+            <button class="btn btn-danger btn-small">Delete</button>
+        </div>
+    </div>
 </div>
 {% endblock %}

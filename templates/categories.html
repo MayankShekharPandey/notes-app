@@ -1,53 +1,35 @@
 {% extends "base.html" %}
 
-{% block title %}Categories - Notes App{% endblock %}
+{% block title %}Categories - SimpleNotes{% endblock %}
 
 {% block content %}
-<div class="categories-container">
-    <div class="categories-header">
-        <h1>Categories</h1>
+<div class="page-header">
+    <h1 class="page-title">Categories</h1>
+</div>
+
+<div class="categories-grid">
+    <div class="category-card">
+        <h3>Work</h3>
+        <p>5 notes</p>
+        <a href="#" class="btn btn-outline btn-small">View Notes</a>
     </div>
 
-    <div class="categories-grid">
-        <div class="add-category-form">
-            <h2>Add New Category</h2>
-            <form method="POST" action="{{ url_for('add_category') }}">
-                <div class="form-group">
-                    <label for="category_name">Category Name:</label>
-                    <input type="text" id="category_name" name="category_name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="category_color">Color:</label>
-                    <input type="color" id="category_color" name="category_color" value="#3498db">
-                </div>
-                
-                <button type="submit" class="btn-primary">Add Category</button>
-            </form>
-        </div>
+    <div class="category-card">
+        <h3>Personal</h3>
+        <p>3 notes</p>
+        <a href="#" class="btn btn-outline btn-small">View Notes</a>
+    </div>
 
-        <div class="categories-list">
-            <h2>Your Categories</h2>
-            {% if categories %}
-                {% for category in categories %}
-                <div class="category-card">
-                    <div class="category-info">
-                        <span class="category-color" style="background-color: {{ category.color }};"></span>
-                        <div>
-                            <h3>{{ category.name }}</h3>
-                            <p>{{ category.notes[0].count if category.notes else 0 }} note(s)</p>
-                        </div>
-                    </div>
-                    <div class="category-actions">
-                        <a href="{{ url_for('delete_category', category_id=category.id) }}" class="btn-delete" 
-                           onclick="return confirm('Delete this category? Notes will not be deleted.')">Delete</a>
-                    </div>
-                </div>
-                {% endfor %}
-            {% else %}
-                <p class="no-data">No categories yet.</p>
-            {% endif %}
-        </div>
+    <div class="category-card">
+        <h3>Ideas</h3>
+        <p>7 notes</p>
+        <a href="#" class="btn btn-outline btn-small">View Notes</a>
+    </div>
+
+    <div class="category-card">
+        <h3>Add New Category</h3>
+        <p>Create a new category</p>
+        <button class="btn btn-primary btn-small">Add Category</button>
     </div>
 </div>
 {% endblock %}
