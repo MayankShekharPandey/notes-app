@@ -10,6 +10,10 @@ A full-stack notes application built with Flask and Supabase.
 
 **[Access the app here](https://notes-app-theta-black.vercel.app/)**
 
+## 📸 App Screenshots
+
+[View Complete Screenshots PDF](https://drive.google.com/file/d/1lLzyMkeXbYaLCX_dm3pZOyUMxMNDJlod/view?usp=sharing)
+
 ## ✨ Features
 
 - User authentication with Supabase
