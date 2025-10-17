@@ -72,5 +72,3 @@ Deployed on Vercel with environment variables for Supabase credentials.
 ---
 
 **Live at:** [notes-app-theta-black.vercel.app](https://notes-app-theta-black.vercel.app/)
-```
-
