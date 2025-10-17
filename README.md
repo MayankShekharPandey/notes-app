@@ -30,7 +30,7 @@ A full-stack notes application built with Flask and Supabase.
 
 ```bash
 # Clone and setup
-git clone https://github.com/your-username/notes-app.git
+git clone https://github.com/MayankShekharPandey/notes-app.git
 cd notes-app
 pip install -r requirements.txt
 
@@ -46,11 +46,23 @@ python app.py
 
 ```
 notes-app/
-├── app.py              # Main application
-├── supabase_client.py  # Database config
-├── requirements.txt    # Dependencies
-├── static/style.css   # Styles
-└── templates/         # HTML templates
+├── app.py                 # Main Flask application
+├── supabase_client.py     # Database configuration
+├── requirements.txt       # Python dependencies
+├── runtime.txt           # Python version specification
+├── vercel.json           # Deployment configuration
+├── static/
+│   └── style.css         # Minimalist styling
+└── templates/
+    ├── base.html         # Base template
+    ├── index.html        # Dashboard
+    ├── login.html        # Login page
+    ├── register.html     # Registration page
+    ├── all_notes.html    # All notes view
+    ├── important_notes.html # Important notes
+    ├── add_note.html     # Add note form
+    ├── search.html       # Search page
+    └── categories.html   # Categories management
 ```
 
 ## 🌐 Deployment
@@ -62,10 +74,3 @@ Deployed on Vercel with environment variables for Supabase credentials.
 **Live at:** [notes-app-theta-black.vercel.app](https://notes-app-theta-black.vercel.app/)
 ```
 
-## 🚀 **Push the Short Version**
-
-```powershell
-git add README.md
-git commit -m "Shorter, cleaner README"
-git push origin main
-```
